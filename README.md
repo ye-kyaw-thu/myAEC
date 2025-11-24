@@ -7,8 +7,8 @@ This repository contains the **Burmese Automatic Speech Recognition (ASR) Error 
 
 This dataset provides **parallel data of:**
 
-* **ASR output (with errors)**
-* **Ground-truth transcripts**
+* ASR output (with errors)
+* Ground-truth transcripts
 * Alignment files 
 * IPA annotation features 
 
