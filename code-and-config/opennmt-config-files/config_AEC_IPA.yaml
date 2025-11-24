@@ -1,0 +1,84 @@
+# mm_spell_t.yaml
+
+save_data: /kaggle/working/transformer
+overwrite: True
+
+src_vocab: /kaggle/working/transformer/mm_spell.vocab.src
+tgt_vocab: /kaggle/working/transformer/mm_spell.vocab.tgt
+vocab_size_multiple: 8
+src_words_min_frequency: 1
+tgt_words_min_frequency: 1
+share_vocab: True
+n_sample: 0
+
+src_seq_length: 200
+tgt_seq_length: 200
+
+src_feats: 1
+n_src_feats: 1
+feat_merge: "mlp"
+feat_vec_size: 512
+
+data:
+    corpus_1:
+        path_src: /kaggle/working/err_syl.train
+        path_tgt: /kaggle/working/crr_syl.train
+        transforms: [inferfeats, filtertoolong]
+        weight: 1
+    valid:
+        path_src: /kaggle/working/err_syl.val
+        path_tgt: /kaggle/working/crr_syl.val
+        transforms: [inferfeats]
+
+reversible_tokenization: "joiner"
+
+save_model: ./transformer/working/model/transformer.mmspell
+save_checkpoint_steps: 10000
+keep_checkpoint: 10
+average_decay: 0
+seed: 3435
+train_steps: 200000
+valid_steps: 10000
+warmup_steps: 5000
+report_every: 1000
+early_stopping: 4
+
+
+decoder_type: transformer
+encoder_type: transformer
+word_vec_size: 512
+hidden_size: 512
+enc_layers: 4
+dec_layers: 4
+transformer_ff: 2048
+heads: 8
+
+accum_count: 4
+
+model_dtype: "fp16"
+optim: adam
+adam_beta1: 0.9
+adam_beta2: 0.998
+decay_method: noam
+learning_rate: 0.1
+max_grad_norm: 0.0
+
+batch_size: 64
+batch_type: tokens
+normalization: tokens
+dropout_steps: [0]
+dropout: [0.3]
+attention_dropout: [0.3]
+position_encoding: true
+label_smoothing: 0.1
+
+max_generator_batches: 2
+
+param_init: 0.0
+param_init_glorot: true
+
+world_size: 1
+gpu_ranks: [0]
+
+tensorboard: true
+tensorboard_log_dir: ./transformer/logs
